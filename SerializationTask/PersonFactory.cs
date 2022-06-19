@@ -4,7 +4,7 @@ using SerializationTask.Models;
 
 namespace SerializationTask
 {
-    internal static class PersonFactory
+    static class PersonFactory
     {
         private static readonly Random _random = new();
         
@@ -26,21 +26,8 @@ namespace SerializationTask
             person.FirstName = DataSource.NextFirstName(person.Gender);
             person.LastName = DataSource.NextLastName(person.Gender);
             person.Age = Posix.YearsBetween(DateTime.UtcNow, person.BirthDate);
-           
-            person.Children = new Child[_random.Next(6)];
-            for (var i = 0; i < person.Children.Length; i++)
-            {
-                person.Children[i] = new Child
-                {
-                    Id = DataSource.NextId(),
-                    Gender = DataSource.NextGender(),
-                    BirthDate = DataSource.NextChildBirthdate(person.BirthDate)
-                };
-                
-                person.Children[i].FirstName = DataSource.NextFirstName(person.Children[i].Gender);
-                person.Children[i].LastName = DataSource.NextChildLastName(person, person.Children[i]);
-            }
-            
+            person.Children = ChildFactory.CreateArray(person, _random.Next(6));
+
             return person;
         }
         
