@@ -10,7 +10,8 @@ Create a program which will execute the next steps:
 Use POSIX format for dates.
 Use lowerCamelCase JSON notation in result file.
 
-	Data models:
+Data models:
+
 	class Person
 	{
 		public Int32 Id { get; set; }
